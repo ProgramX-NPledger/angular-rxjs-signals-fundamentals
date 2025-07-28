@@ -20,4 +20,12 @@ export class ProductService {
         tap(() => console.log('fetched products')),
       );
   }
+
+  getProduct(id: number) {
+    const productUrl = this.productsUrl + '/' + id;
+    return this.http.get<Product>(productUrl)
+      .pipe(
+        tap(() => console.log(`fetched product id=${id}`)),
+      );
+  }
 }

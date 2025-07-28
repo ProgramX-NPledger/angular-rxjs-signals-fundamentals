@@ -1,10 +1,23 @@
-import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
+import { Observable, tap } from 'rxjs';
+import { Product } from './product';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
-  // Just enough here for the code to compile
+
+  //constructor(private http: HttpClient) { }
+
+  private http = inject(HttpClient);
+
   private productsUrl = 'api/products';
 
+  getProducts(): Observable<Product[]> {
+    return this.http.get<Product[]>(this.productsUrl)
+      .pipe(
+        tap(() => console.log('fetched products')),
+      );
+  }
 }
